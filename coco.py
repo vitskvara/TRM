@@ -1,3 +1,11 @@
+# EDIT THESE PATHS ACCORDING TO WHERE YOUR RAW DATA IS SAVED/TO BE SAVED
+# where the processed coco data will be saved
+output_dir = '../sgad_data/raw_datasets/coco_processed'
+# where the train images are saved
+coco_path = '../sgad_data/raw_datasets/coco/train2017'
+# location of the annotation file
+anot_path = '../sgad_data/raw_datasets/coco/annotations/instances_train2017.json'
+
 import os, sys, time, io, subprocess, requests
 import numpy as np
 import random
@@ -28,7 +36,6 @@ CLASSES = [
         ]
 
 
-output_dir = '../sgad_data/raw_datasets/coco_processed'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
@@ -135,7 +142,7 @@ val_id_file.create_dataset('y', (val_i,), dtype='int32')
 id_test_file.create_dataset('y', (te_i,), dtype='int32')
 
 
-coco = COCO('../sgad_data/raw_datasets/coco/annotations/instances_train2017.json')
+coco = COCO(anot_path)
 cats = coco.loadCats(coco.getCatIds())
 
 
@@ -165,7 +172,7 @@ for c in range(NUM_CLASSES):
                 max_ann = anns[_pos]['area']
 
         if max_ann < 10000: continue;
-        img_path = os.path.join('../sgad_data/raw_datasets/coco/train2017', im['file_name'])
+        img_path = os.path.join(coco_path, im['file_name'])
         I = np.asarray(Image.open(img_path))
         if len(I.shape) == 2:
             I = np.tile(I[:,:,None], [1,1,3])
@@ -205,7 +212,7 @@ for c in range(NUM_CLASSES):
 
         if max_ann < 10000: continue;
 
-        img_path = os.path.join('../sgad_data/raw_datasets/coco/train2017', im['file_name'])
+        img_path = os.path.join(coco_path, im['file_name'])
         I = np.asarray(Image.open(img_path))
         if len(I.shape) == 2:
             I = np.tile(I[:,:,None], [1,1,3])
@@ -245,7 +252,7 @@ for c in range(NUM_CLASSES):
                 max_ann = anns[_pos]['area']
         if max_ann < 10000: continue;
 
-        img_path = os.path.join('../sgad_data/raw_datasets/coco/train2017', im['file_name'])
+        img_path = os.path.join(coco_path, im['file_name'])
         I = np.asarray(Image.open(img_path))
         if len(I.shape) == 2:
             I = np.tile(I[:,:,None], [1,1,3])
