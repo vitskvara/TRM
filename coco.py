@@ -28,7 +28,7 @@ CLASSES = [
         ]
 
 
-output_dir = os.path.join('../data', 'coco')
+output_dir = '../sgad_data/raw_datasets/coco_processed'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
@@ -39,6 +39,7 @@ h5pyfname = output_dir
 print(h5pyfname,os.path.exists(h5pyfname))
 if not os.path.exists(h5pyfname):
     os.makedirs(h5pyfname)
+
 # we dont use this function below
 def getClassName(cID, cats):
     for i in range(len(cats)):
@@ -75,6 +76,7 @@ def test_colours():
         if np.min(np.sum((x - biased_colours)**2, 1)) > _D and np.min(np.sum((x - unbiased_colours)**2, 1)) > _D:
             break
     return x
+
 test_unbiased_colours = np.array([test_colours() for _ in range(10)])
 
 def validation_colours():
@@ -83,6 +85,7 @@ def validation_colours():
         if np.min(np.sum((x - biased_colours)**2, 1)) > _D and np.min(np.sum((x - unbiased_colours)**2, 1)) > _D and np.min(np.sum((x - test_unbiased_colours)**2, 1)) > _D:
             break
     return x
+
 validation_unbiased_colours = np.array([validation_colours() for _ in range(10)])
 
 ###########################################################################################
@@ -132,7 +135,7 @@ val_id_file.create_dataset('y', (val_i,), dtype='int32')
 id_test_file.create_dataset('y', (te_i,), dtype='int32')
 
 
-coco = COCO('../data/coco/annotations/instances_train2017.json')
+coco = COCO('../sgad_data/raw_datasets/coco/annotations/instances_train2017.json')
 cats = coco.loadCats(coco.getCatIds())
 
 
@@ -162,7 +165,7 @@ for c in range(NUM_CLASSES):
                 max_ann = anns[_pos]['area']
 
         if max_ann < 10000: continue;
-        img_path = os.path.join('../data/coco/train2017', im['file_name'])
+        img_path = os.path.join('../sgad_data/raw_datasets/coco/train2017', im['file_name'])
         I = np.asarray(Image.open(img_path))
         if len(I.shape) == 2:
             I = np.tile(I[:,:,None], [1,1,3])
@@ -202,7 +205,7 @@ for c in range(NUM_CLASSES):
 
         if max_ann < 10000: continue;
 
-        img_path = os.path.join('../data/coco/train2017', im['file_name'])
+        img_path = os.path.join('../sgad_data/raw_datasets/coco/train2017', im['file_name'])
         I = np.asarray(Image.open(img_path))
         if len(I.shape) == 2:
             I = np.tile(I[:,:,None], [1,1,3])
@@ -242,7 +245,7 @@ for c in range(NUM_CLASSES):
                 max_ann = anns[_pos]['area']
         if max_ann < 10000: continue;
 
-        img_path = os.path.join('../data/coco/train2017', im['file_name'])
+        img_path = os.path.join('../sgad_data/raw_datasets/coco/train2017', im['file_name'])
         I = np.asarray(Image.open(img_path))
         if len(I.shape) == 2:
             I = np.tile(I[:,:,None], [1,1,3])
