@@ -1,6 +1,6 @@
 # EDIT THESE PATHS ACCORDING TO WHERE YOUR RAW DATA IS SAVED/TO BE SAVED
-output_dir = '../sgad_data/places'
-places_dir = '../sgad_data/places/data_256'
+output_dir = '../sgad_data/raw_datasets/places_processed'
+places_dir = '../sgad_data/raw_datasets/places/data_256'
 
 import os, subprocess
 import numpy as np
