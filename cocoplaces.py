@@ -1,3 +1,7 @@
+# EDIT THESE PATHS ACCORDING TO WHERE YOUR RAW DATA IS SAVED/TO BE SAVED
+output_dir = '../sgad_data/places'
+places_dir = '../sgad_data/places/data_256'
+
 import os, subprocess
 import numpy as np
 import random
@@ -7,9 +11,6 @@ import matplotlib
 matplotlib.use('Agg')
 
 import h5py
-################ Paths and other configs - Set these #################################
-output_dir = os.path.join('../data', 'places')
-places_dir = os.path.join('../data', 'places', 'data_256')
 
 biased_places = ['b/beach',
                  'c/canyon',
