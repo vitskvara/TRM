@@ -71,7 +71,7 @@ val_file = h5py.File(val_fname, mode='w')
 train_file.create_dataset('resized_images', (tr_i,3,imsize,imsize), dtype=np.dtype('float32'))
 val_file.create_dataset('resized_images', (val_i,3,imsize,imsize), dtype=np.dtype('float32'))
 train_file.create_dataset('resized_mask', (tr_i,3,imsize,imsize), dtype=np.dtype('float32'))
-val_file_file.create_dataset('resized_mask', (val_i,3,imsize,imsize), dtype=np.dtype('float32'))
+val_file.create_dataset('resized_mask', (val_i,3,imsize,imsize), dtype=np.dtype('float32'))
 
 # g stands for 'group'
 train_file.create_dataset('y', (tr_i,), dtype='int32')
