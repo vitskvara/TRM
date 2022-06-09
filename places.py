@@ -15,12 +15,12 @@ matplotlib.use('Agg')
 import h5py
 
 biased_places = ['b/beach',
-                 'c/canyon',
                  'b/bamboo_forest',
+                 'c/canyon',
                  'f/forest/broadleaf',
                  'b/ball_pit',
-                 'r/rock_arch',
                  'o/orchard',
+                 'r/rock_arch',
                  's/shower',
                  's/ski_slope',
                  'w/wheat_field'
@@ -30,7 +30,7 @@ NUM_CLASSES = len(biased_places)
 print('----- Bias places ------')
 print(biased_places)
 
-dataset_name = 'cocoplaces'
+dataset_name = f'processed_{imsize}'
 h5pyfname = os.path.join(output_dir, dataset_name)
 print('---------------- FNAME --------------')
 print(h5pyfname)
@@ -45,7 +45,7 @@ for i, target_place in enumerate(biased_places):
 
 
 tr_i = n_samples * NUM_CLASSES
-train_fname = os.path.join(h5pyfname,f'places_{imsize}.h5py')
+train_fname = os.path.join(h5pyfname,'data.h5py')
 if os.path.exists(train_fname): subprocess.call(['rm', train_fname])
 train_file = h5py.File(train_fname, mode='w')
 train_file.create_dataset('resized_place', (NUM_CLASSES,n_samples,3,imsize,imsize), dtype=np.dtype('float32'))
@@ -68,4 +68,3 @@ for c in range(NUM_CLASSES):
     print('')
 
 train_file.close()
-
