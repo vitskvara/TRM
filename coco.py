@@ -1,6 +1,7 @@
 # EDIT THESE PATHS ACCORDING TO WHERE YOUR RAW DATA IS SAVED/TO BE SAVED
 # where the processed coco data will be saved
-output_dir = '../sgad_data/raw_datasets/coco/processed'
+imsize = 64
+output_dir = f'../sgad_data/raw_datasets/coco/processed_{imsize}'
 # where the train images are saved
 coco_path = '../sgad_data/raw_datasets/coco/train2017'
 # location of the annotation file
@@ -34,7 +35,6 @@ CLASSES = [
         'bus',
         'motorcycle'
         ]
-imsize = 64
 
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
@@ -58,8 +58,8 @@ def getClassName(cID, cats):
 tr_i = 500*NUM_CLASSES
 val_i = 500*NUM_CLASSES
 
-train_fname = os.path.join(h5pyfname,f'train_{imsize}.h5py')
-val_fname = os.path.join(h5pyfname,f'validation_{imsize}.h5py')
+train_fname = os.path.join(h5pyfname,f'train.h5py')
+val_fname = os.path.join(h5pyfname,f'validation.h5py')
 
 if os.path.exists(train_fname): subprocess.call(['rm', train_fname])
 if os.path.exists(train_fname): subprocess.call(['rm', val_fname])
