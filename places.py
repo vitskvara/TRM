@@ -1,5 +1,7 @@
 # EDIT THESE PATHS ACCORDING TO WHERE YOUR RAW DATA IS SAVED/TO BE SAVED
-output_dir = '../sgad_data/raw_datasets/places_processed'
+imsize = 64
+n_samples = 2000
+output_dir = '../sgad_data/raw_datasets/places'
 places_dir = '../sgad_data/raw_datasets/places/data_256'
 
 import os, subprocess
@@ -14,33 +16,15 @@ import h5py
 
 biased_places = ['b/beach',
                  'c/canyon',
-                 'b/building_facade',
-                 's/staircase',
-                 'd/desert/sand',
-                 'c/crevasse',
                  'b/bamboo_forest',
                  'f/forest/broadleaf',
                  'b/ball_pit',
+                 'r/rock_arch',
+                 'o/orchard',
+                 's/shower',
+                 's/ski_slope'
+                 'w/wheat_field'
                  ]
-
-unbiased_places = [
-                 'k/kasbah',
-                 'l/lighthouse',
-                 'p/pagoda',
-                 'r/rock_arch']
-
-validation_unbiased_places = [
-        'o/oast_house',
-        'o/orchard',
-        'v/viaduct']
-
-test_unbiased_places = [
-                 'w/water_tower',
-                 'w/waterfall',
-                 'z/zen_garden']
-
-
-biased_places = biased_places + unbiased_places + validation_unbiased_places + test_unbiased_places
 NUM_CLASSES = len(biased_places)
 
 print('----- Bias places ------')
@@ -60,11 +44,11 @@ for i, target_place in enumerate(biased_places):
     biased_place_fnames[i] = L
 
 
-tr_i = 1000 * NUM_CLASSES
-train_fname = os.path.join(h5pyfname,'places.h5py')
+tr_i = n_samples * NUM_CLASSES
+train_fname = os.path.join(h5pyfname,f'places_{imsize}.h5py')
 if os.path.exists(train_fname): subprocess.call(['rm', train_fname])
 train_file = h5py.File(train_fname, mode='w')
-train_file.create_dataset('resized_place', (NUM_CLASSES,1000,3,64,64), dtype=np.dtype('float32'))
+train_file.create_dataset('resized_place', (NUM_CLASSES,n_samples,3,imsize,imsize), dtype=np.dtype('float32'))
 
 tr_s, val_s, te_s = 0, 0, 0
 
@@ -72,11 +56,11 @@ for c in range(NUM_CLASSES):
 
     tr_si = 0
     print('Class {} (train) : '.format(c), biased_places[c], end=' ')
-    while tr_si < 1000:
+    while tr_si < n_samples:
         place_path = biased_place_fnames[c][tr_si]
         place_img = np.asarray(Image.open(os.path.join(places_dir, place_path)).convert('RGB'))
         # that's the one:
-        resized_place = resize(place_img, (64, 64))
+        resized_place = resize(place_img, (imsize, imsize))
         train_file['resized_place'][c, tr_si, ...] = np.transpose(resized_place, (2,0,1))
         tr_si += 1
         if tr_si % 100 == 0: print('>'.format(c), end='')

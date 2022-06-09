@@ -168,4 +168,4 @@ for c in range(NUM_CLASSES):
     print('')
 
 train_file.close()
-val_id_file.close()
+val_file.close()

@@ -17,7 +17,7 @@ http://images.cocodataset.org/annotations/annotations_trainval2017.zip
 Extract only the needed places classes (in the dir where the downloaded .tar file is located):
 
 ```shell
-tar -xvf train_256_places365standard.tar data_256/b/beach data_256/c/canyon data_256/b/building_facade data_256/s/staircase data_256/d/desert/sand data_256/c/crevasse data_256/b/bamboo_forest data_256/f/forest/broadleaf data_256/b/ball_pit data_256/k/kasbah data_256/l/lighthouse data_256/p/pagoda data_256/r/rock_arch data_256/o/oast_house data_256/o/orchard data_256/v/viaduct data_256/w/water_tower data_256/w/waterfall data_256/z/zen_garden
+tar -xvf train_256_places365standard.tar data_256/b/beach data_256/c/canyon data_256/b/bamboo_forest data_256/f/forest/broadleaf data_256/b/ball_pit data_256/r/rock_arch data_256/o/orchard data_256/s/shower data_256/s/ski_slope data_256/w/wheat_field
 ```
 
 # Requirements
