@@ -55,8 +55,8 @@ def getClassName(cID, cats):
     return 'None'
 
 # lets go
-tr_i = 1000*NUM_CLASSES
-val_i = 1000*NUM_CLASSES
+tr_i = 500*NUM_CLASSES
+val_i = 500*NUM_CLASSES
 
 train_fname = os.path.join(h5pyfname,f'train_{imsize}.h5py')
 val_fname = os.path.join(h5pyfname,f'validation_{imsize}.h5py')
@@ -82,7 +82,7 @@ coco = COCO(anot_path)
 cats = coco.loadCats(coco.getCatIds())
 
 # now iterate over classes
-tr_s, val_s, te_s = 0, 0, 0
+tr_s, val_s = 0, 0
 for c in range(NUM_CLASSES):
     catIds = coco.getCatIds(catNms=[CLASSES[c]])
     imgIds = coco.getImgIds(catIds=catIds)
@@ -169,5 +169,3 @@ for c in range(NUM_CLASSES):
 
 train_file.close()
 val_id_file.close()
-id_test_file.close()
-
