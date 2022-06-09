@@ -1,6 +1,6 @@
 # EDIT THESE PATHS ACCORDING TO WHERE YOUR RAW DATA IS SAVED/TO BE SAVED
 imsize = 64
-n_samples = 2000
+n_samples = 1000
 output_dir = '../sgad_data/raw_datasets/places'
 places_dir = '../sgad_data/raw_datasets/places/data_256'
 
