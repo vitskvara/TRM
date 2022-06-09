@@ -22,7 +22,7 @@ biased_places = ['b/beach',
                  'r/rock_arch',
                  'o/orchard',
                  's/shower',
-                 's/ski_slope'
+                 's/ski_slope',
                  'w/wheat_field'
                  ]
 NUM_CLASSES = len(biased_places)
