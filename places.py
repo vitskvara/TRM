@@ -63,7 +63,7 @@ for c in range(NUM_CLASSES):
         # that's the one:
         resized_place = resize(place_img, (imsize, imsize))
         train_file['resized_place'][c, tr_si, ...] = np.transpose(resized_place, (2,0,1))
-        train_file['y'][tr_si] = c
+        train_file['y'][c*n_samples + tr_si] = c
         tr_si += 1
         if tr_si % 100 == 0: print('>'.format(c), end='')
         ########################################
