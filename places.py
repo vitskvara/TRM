@@ -49,6 +49,7 @@ train_fname = os.path.join(h5pyfname,'data.h5py')
 if os.path.exists(train_fname): subprocess.call(['rm', train_fname])
 train_file = h5py.File(train_fname, mode='w')
 train_file.create_dataset('resized_place', (NUM_CLASSES,n_samples,3,imsize,imsize), dtype=np.dtype('float32'))
+train_file.create_dataset('y', (NUM_CLASSES*n_samples,), dtype='int32')
 
 tr_s, val_s, te_s = 0, 0, 0
 
@@ -62,6 +63,7 @@ for c in range(NUM_CLASSES):
         # that's the one:
         resized_place = resize(place_img, (imsize, imsize))
         train_file['resized_place'][c, tr_si, ...] = np.transpose(resized_place, (2,0,1))
+        train_file['y'][tr_si] = c
         tr_si += 1
         if tr_si % 100 == 0: print('>'.format(c), end='')
         ########################################
